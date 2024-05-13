@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
-    <main>
+    <main class="table-output">
         <?php
             if($_SESSION['user_role'] == "admin"){
-                echo "<header><a href='?operation=get'>GET</a><a href='?operation=add'>ADD</a><a href='?operation=edit'>EDIT</a><a href='?operation=fire'>FIRE</a></header>";
+                echo "<header><a href='?operation=get'>ПОСМОТРЕТЬ</a><a href='?operation=add'>ДОБАВИТЬ</a><a href='?operation=edit'>ИЗМЕНИТЬ</a><a href='?operation=fire'>УВОЛИТЬ</a></header>";
                 if (@$_GET['operation']){
                     switch($_GET['operation']){
                         default:{
@@ -24,40 +24,39 @@
                     include_once "../php/connect_to_db.php";
                     $query = $pdo->prepare("SELECT login, name, password, photo_file, role.role_name FROM user, role WHERE role_role_id = role.role_id");
                     $query->execute();
-                    $res = $query->fetch(PDO::FETCH_ASSOC);
+                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     if ($res){
-                        echo "<table>
-                            <tr>
-                                <td>№</td>
-                                <td>ЛОГИН</td>
-                                <td>ИМЯ</td>
-                                <td>ПАРОЛЬ</td>
-                                <td>НАЗВАНИЕ ФОТО</td>
-                                <td>СТАТУС</td>
-                            </tr>";
-                        echo $res['login'];
-                        for ($i = 0; $i < sizeof($res['login']); $i++){
-                            echo "<tr>
-                                    <td>
+                        echo "<div class='table users'>
+                            <div>
+                                <p>№</p>
+                                <p>ЛОГИН</p>
+                                <p>ИМЯ</p>
+                                <p>ПАРОЛЬ</p>
+                                <p>НАЗВАНИЕ ФОТО</p>
+                                <p>СТАТУС</p>
+                            </div>";
+                        for ($i = 0; $i < sizeof($res); $i++){
+                            echo "<div>
+                                    <p>
                                         $i
-                                    </td>
-                                    <td>
-                                        ".$res['login'][$i]."
-                                    </td>
-                                    <td>
-                                        ".$res['name'][$i]."
-                                    </td>
-                                    <td>
-                                        ".$res['password'][$i]."
-                                    </td>
-                                    <td>
-                                        ".$res['photo_file'][$i]."
-                                    </td>
-                                    <td>
-                                        ".$res['role_name'][$i]."
-                                    </td>
-                                </tr>";
+                                    </p>
+                                    <p>
+                                        ".$res[$i]['login']."
+                                    </p>
+                                    <p>
+                                        ".$res[$i]['name']."
+                                    </p>
+                                    <p>
+                                        ".$res[$i]['password']."
+                                    </p>
+                                    <p>
+                                        ".($res[$i]['photo_file'] ? $res[$i]['photo_file'] : "НЕТУ")."
+                                    </p>
+                                    <p>
+                                        ".$res[$i]['role_name']."
+                                    </p>
+                                </div>";
                         }
                         $pdo = null;
                     }
