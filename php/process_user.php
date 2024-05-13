@@ -4,13 +4,16 @@ include_once "connect_to_db.php";
 // TODO: actual actions
 switch($_POST['action']){
     case "auth":{
+        session_start();
         $query = $pdo->prepare("SELECT login, name, role.role_name FROM user, role WHERE (login = :login and password = :password) and role_role_id = role.role_id", [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
         $query->execute(['login' => $_POST['login'], 'password' => $_POST['password']]);
         $res = $query->fetch(PDO::FETCH_ASSOC);
 
         if ($res){
             $_SESSION['user'] = $res['login'];
+            $_SESSION['user_role'] = $res['role_name'];
             $pdo = null;
+            echo $res['role_name'];
             header("Location: ../");
             break;
         }
