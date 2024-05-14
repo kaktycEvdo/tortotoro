@@ -2,11 +2,11 @@
 include_once "connect_to_db.php";
 
 // TODO: actual actions
-switch($_POST['action']){
+switch($_GET['action']){
     case "auth":{
         session_start();
         $query = $pdo->prepare("SELECT login, name, role.role_name FROM user, role WHERE (login = :login and password = :password) and role_role_id = role.role_id", [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
-        $query->execute(['login' => $_POST['login'], 'password' => $_POST['password']]);
+        $query->execute(['login' => $_POST['login'], 'password' => md5($_POST['password'])]);
         $res = $query->fetch(PDO::FETCH_ASSOC);
 
         if ($res){
@@ -24,36 +24,26 @@ switch($_POST['action']){
     }
 
     case "add":{
-        $query = $pdo->prepare("INSERT INTO personal_data (login, password) VALUES (:login, :password)", [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
-        $res = $query->execute(['login' => $_POST['login'], 'password' => $_POST['password']]);
-
-        if ($res){
-            if($_POST["patronymic"]){
-                $query = $pdo->prepare("INSERT INTO user (email, name, surname, patronymic, phone, personal_data_login)
-                VALUES (:email, :name, :surname, :patronymic, :phone, :login)", [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
-
-                $query->execute(['email' => $_POST['email'], 'name' => $_POST['name'],
-                'surname' => $_POST['surname'], 'patronymic' => $_POST['patronymic'],
-                'phone' => $_POST['phone'], 'login' => $_POST['login']]);
-            }
-            else{
-                $query = $pdo->prepare("INSERT INTO user (email, name, surname, phone, personal_data_login)
-                VALUES (:email, :name, :surname, :phone, :login)", [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
-
-                $query->execute(['email' => $_POST['email'], 'name' => $_POST['name'],
-                'surname' => $_POST['surname'], 'phone' => $_POST['phone'],
-                'login' => $_POST['login']]);
-            }
-
-            $_SESSION['user'] = $_POST['login'];
-            $pdo = null;
-            header("Location: ../?page=index");
-            break;
-        }
-
-
+        $query = $pdo->prepare("INSERT INTO user (name, login, password, photo_file, role_role_id) VALUES (:name, :login, :password, :photo_file, :role)", [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
+        $res = $query->execute(['login' => $_POST['login'], 'password' => md5($_POST['password']), 'name' => $_POST['name'], 'photo_file' => $_POST['photo_file'], 'role' => $_POST['role']]);
         $pdo = null;
-        header("Location: ../?page=reg", $response_code = 401);
+        header("Location: ../admin/users_management.php");
+        break;
+    }
+
+    case "update":{
+        $query = $pdo->prepare("UPDATE user SET name = :name, login = :login, password = :password, photo_file = :photo_file, role_role_id = :role WHERE login = :given_login", [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
+        $res = $query->execute(['login' => $_POST['login'], 'password' => md5($_POST['password']), 'name' => $_POST['name'], 'photo_file' => $_POST['photo_file'], 'role' => $_POST['role'], 'given_login' => $_GET['given_login']]);
+        $pdo = null;
+        header("Location: ../admin/users_management.php");
+        break;
+    }
+
+    case "delete":{
+        $query = $pdo->prepare("DELETE FROM user WHERE login = :given_login", [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
+        $res = $query->execute(['given_login' => $_GET['given_login']]);
+        $pdo = null;
+        header("Location: ../admin/users_management.php");
         break;
     }
 }

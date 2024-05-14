@@ -4,6 +4,7 @@
 }
 body{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-width: 100vw;
@@ -47,13 +48,16 @@ main#index{
     min-height: 60vh;
     justify-content: start;
 }
-.table-output header{
+header{
+    position: fixed;
     display: flex;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: left;
+    width: 99vw;
     padding: 5px;
+    top: 0;
+    right: 0;
 }
-.table-output header a{
+header a{
     text-align: center;
     border: 2px solid rgba(0,0,0,0.2);
     border-radius: 2px;
@@ -63,10 +67,15 @@ main#index{
     background-color: #1e90ff;
     min-width: 80px;
 }
-.table-output header a:hover{
+header a:hover{
     background-color: #1b83eb;
 }
-.table-output header a:nth-child(4){
+.table-output > header{
+    position: relative;
+    justify-content: space-around;
+    width: 100%;
+}
+.table-output > header a:nth-child(4){
     background-color: #ff1e1e;
 }
 .table-output header a:nth-child(4):hover{
@@ -75,6 +84,7 @@ main#index{
 .table-output .table{
     padding: 10px;
     width: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -83,8 +93,21 @@ main#index{
     width: 100%;
     grid-template-columns: 0.15fr 0.4fr 1fr 1fr 1fr 0.3fr;
 }
+div.table.users > div:not(:first-child){
+    background-color: #b4daff;
+}
+div.table.users > div:not(:first-child):hover{
+    background-color: #9cbddd;
+}
 .table-output .table > div > p{
     border: 1px solid black;
     min-width: 40px;
     padding: 2px;
+}
+.table-form{
+    border: 1px solid black
+}
+.table-form > div:first-child{
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
 }

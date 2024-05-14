@@ -8,15 +8,13 @@
 </head>
 <body>
     <main>
-        <form action="php/process_user.php" method="POST">
+        <form action="php/process_user.php?action=auth" method="POST">
             <h2>Авторизация</h2>
-            <div>
+            <>
                 <label for="login">Логин</label>
                 <input id="login" name="login" maxlength="50" />
                 <label for="password">Пароль</label>
                 <input id="password" name="password" maxlength="50" />
-                <!-- Самый тупой способ, как это сделать. -->
-                <div hidden><input type="radio" checked name="action" value="auth" /></div>
             </div>
             <div>
                 <input type="submit" value="Авторизоваться" />
