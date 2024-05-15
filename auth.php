@@ -10,11 +10,10 @@
     <main>
         <form action="php/process_user.php?action=auth" method="POST">
             <h2>Авторизация</h2>
-            <>
                 <label for="login">Логин</label>
                 <input id="login" name="login" maxlength="50" />
                 <label for="password">Пароль</label>
-                <input id="password" name="password" maxlength="50" />
+                <input type="password" id="password" name="password" maxlength="50" />
             </div>
             <div>
                 <input type="submit" value="Авторизоваться" />

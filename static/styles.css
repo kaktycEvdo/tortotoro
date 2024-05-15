@@ -75,11 +75,17 @@ header a:hover{
     justify-content: space-around;
     width: 100%;
 }
-.table-output > header a:nth-child(4){
+.red{
     background-color: #ff1e1e;
 }
-.table-output header a:nth-child(4):hover{
+.red:hover{
     background-color: #eb1b1b;
+}
+.table-output header :not(a[href]){
+    background-color: grey;
+}
+.table-output header :not(a[href]):hover{
+    background-color: grey;
 }
 .table-output .table{
     padding: 10px;
@@ -93,10 +99,28 @@ header a:hover{
     width: 100%;
     grid-template-columns: 0.15fr 0.4fr 1fr 1fr 1fr 0.3fr;
 }
-div.table.users > div:not(:first-child){
+.table.shifts > div{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 0.15fr 0.4fr 1fr 1fr 0.3fr 1fr;
+}
+.table.dishes > div{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 0.15fr 1fr 1fr 0.5fr;
+}
+.table.orders > div, .table.orders-cook > div{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 0.15fr 0.2fr 0.15fr 1fr;
+}
+div.table > div:not(:first-child){
     background-color: #b4daff;
 }
-div.table.users > div:not(:first-child):hover{
+div.table > div:not(:first-child):hover{
+    background-color: #9cbddd;
+}
+div.table > div:not(:first-child).chosen{
     background-color: #9cbddd;
 }
 .table-output .table > div > p{
@@ -110,4 +134,7 @@ div.table.users > div:not(:first-child):hover{
 .table-form > div:first-child{
     display: grid;
     grid-template-columns: 0.2fr 1fr;
+}
+.table-form > div:first-child > select{
+    grid-column: 1 / 3;
 }

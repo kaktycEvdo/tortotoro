@@ -19,14 +19,18 @@
             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
             <?php
                 if (@$_SESSION["user_role"]){
+                    echo "<header>
+                        <a class='red' href='php/process_user.php?action=exit'>ВЫЙТИ</a>
+                    </header>";
                     switch($_SESSION["user_role"]){
                         case "admin":{
                             echo "<a href='admin/users_management.php'>users_management</a>";
                             echo "<a href='admin/shifts_management.php'>shifts_management</a>";
+                            echo "<a href='admin/dishes_management.php'>dishes_management</a>";
                             break;
                         }
                         case "waiter":{
-                            echo "<a href='admin/order_management.php'>order_management</a>";
+                            echo "<a href='waiter/order_management.php'>order_management</a>";
                             break;
                         }
                         case "cook":{

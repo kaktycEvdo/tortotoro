@@ -1,7 +1,6 @@
 <?php
 include_once "connect_to_db.php";
 
-// TODO: actual actions
 switch($_GET['action']){
     case "auth":{
         session_start();
@@ -13,13 +12,20 @@ switch($_GET['action']){
             $_SESSION['user'] = $res['login'];
             $_SESSION['user_role'] = $res['role_name'];
             $pdo = null;
-            echo $res['role_name'];
             header("Location: ../");
             break;
         }
 
         $pdo = null;
         header("Location: ../", $response_code = 401);
+        break;
+    }
+
+    case "exit":{
+        session_start();
+        $_SESSION['user'] = null;
+        $_SESSION['user_role'] = null;
+        header("Location: ../");
         break;
     }
 

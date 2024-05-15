@@ -13,8 +13,8 @@
         <header>
             <a href='?operation=get'>ПОСМОТРЕТЬ</a>
             <a href='?operation=add'>ДОБАВИТЬ</a>
-            <a data-dependant href='?operation=edit'>ИЗМЕНИТЬ</a>
-            <a data-dependant href='../php/process_user.php?action=delete'>УВОЛИТЬ</a>
+            <a data-dependant>ИЗМЕНИТЬ</a>
+            <a class="red" data-dependant>УВОЛИТЬ</a>
         </header>
         <?php
             function get(){
