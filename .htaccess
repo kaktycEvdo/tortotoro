@@ -3,3 +3,12 @@ DirectoryIndex index.php
 <Files ".env">
     Require all denied
 </Files>
+<Files ".gitignore">
+    Require all denied
+</Files>
+<Files "README.md">
+    Require all denied
+</Files>
+<Files ".htaccess">
+    Require all denied
+</Files>
