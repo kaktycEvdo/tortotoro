@@ -40,6 +40,7 @@ switch($_GET['action']){
             $res = $query->execute(['login' => $_POST['login'], 'password' => md5($_POST['password']), 'name' => $_POST['name'], 'photo_file' => $_POST['photo_file'], 'role' => $_POST['role']]);
             $pdo = null;
             header("Location: ../admin/users_management.php");
+            break;
         }
         $pdo = null;
         header("Location: ../", $response_code = 401);
@@ -52,6 +53,7 @@ switch($_GET['action']){
             $res = $query->execute(['login' => $_POST['login'], 'password' => md5($_POST['password']), 'name' => $_POST['name'], 'photo_file' => $_POST['photo_file'], 'role' => $_POST['role'], 'given_login' => $_GET['given_login']]);
             $pdo = null;
             header("Location: ../admin/users_management.php");
+            break;
         }
         $pdo = null;
         header("Location: ../", $response_code = 401);
@@ -64,6 +66,7 @@ switch($_GET['action']){
             $res = $query->execute(['given_login' => $_GET['given_login']]);
             $pdo = null;
             header("Location: ../admin/users_management.php");
+            break;
         }
         $pdo = null;
         header("Location: ../", $response_code = 401);
